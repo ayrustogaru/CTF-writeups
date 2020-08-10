@@ -1,4 +1,5 @@
 We are provided with a file name `windows.vmem` which is a Windows memory dump file.
+
 ![Challenge Description](challenge.png)
 
 **Step 1**: Find the profile of the memory dump using the `imageinfo` plugin
