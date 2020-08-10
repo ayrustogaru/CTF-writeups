@@ -20,20 +20,20 @@ volatility --profile=Win7SP1x64 -f windows.vmem hivelist
 ```
 ![registry hive list](images/hivelist.PNG)
 
-We have a NTUSER.DAT for the user Adam. This is kinda a log file that contains user's settings confs etc.
+We have a `NTUSER.DAT` for the user Adam. This is kinda a log file that contains user's settings confs etc.
 
-**Step 4**: Take a leap of faith and analyze the UserAssist\{...}\Count registry using the `userassist` plugin in volatility3 (Use the plugin's for god's sake, I was doing it
-manually and the last run time I came up with was one second later). You could also dump the `NTUSER.DAT` using `dumpregistry` and then use Eric Zimmerman's `Registry Explorer` 
-to skim through it.
+**Step 4**: Take a leap of faith and analyze the `UserAssist\{...}\Count` registry using the `userassist` plugin in volatility3 (Use the plugin's for god's sake, I was doing it manually and the last run time I came up with was one second later). You could also dump the `NTUSER.DAT` using `dumpregistry` and then use [Eric Zimmerman's](https://ericzimmerman.github.io/) `Registry Explorer` to skim through it.
 ```
 volatility --profile=Win7SP1x64 -f windows.vmem userassist
 ```
 ![userassist count](images/userassist.PNG)
 
 Locate the calc.exe and find out the last run time.
+
 ![calc.exe values](images/calc.PNG)
 
 Then locate the Chrome and find the run count.
+
 ![chrome.exe values](images/chrome.PNG)
 
-Therefore, the flag is `inctf{22-07-2020_18:21:35_19}
+Therefore, the flag is `inctf{22-07-2020_18:21:35_19}`
