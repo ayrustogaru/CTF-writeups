@@ -50,4 +50,4 @@ The `userassist` plugin  will help us find the answer to this.
 
 Adam last used the taskbar to launch Google Chrome on `21-07-2020 17:37:18`.
 
-Hence the flag is inctf{22-07-2020_09:05:11_21-07-2020_18:38:33_21-07-2020_17:37:18}
+Hence the flag is `inctf{22-07-2020_09:05:11_21-07-2020_18:38:33_21-07-2020_17:37:18}`
