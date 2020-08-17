@@ -14,7 +14,7 @@ One of the screenshots was as follows:
 
 ![screenshot](images/screenshot.png)
 
-As you can see, the `cmd.exe`, `Chrome` and `Downloads` windows are open and the `Downloads` points to the `C:\Users\Mike\Downloads` directory. So, out of curiosity, I looked at his browsing history and also scanned through the files present in that directory.
+As you can see, the `cmd.exe`, `Chrome` and `Downloads` windows are open and the `Downloads` points to the `C:\Users\Mike\Downloads` directory. So, out of curiosity, I looked at his browsing history and also scanned through the files present in the above directory.
 
 ```volatility --plugins=plugins/ --profile=Win7SP1x64 -f Evidence/Evidence.vmem chromehistory```
 
@@ -28,7 +28,7 @@ ANDDD
 
 ![filescan output](images/filescan.PNG)
 
-- downloaded a keylogger!! We can get the physical offset from here to dump the file.
+downloaded a keylogger!! We can get the physical offset from here to dump the file.
 
 Now, dump the keylogger and look at how the keystrokes were being sent to the adversary.
 
