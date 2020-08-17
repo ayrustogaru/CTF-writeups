@@ -30,7 +30,37 @@ ANDDD
 
 - downloaded a keylogger!! We can get the physical offset from here to dump the file.
 
-Now, its time to check if the keylogger was actully used. List the processes running using `pslist`.
+Now, dump the keylogger and look at how the keystrokes were being sent to the adversary.
+
+```volatility --profile=Win7SP1x64 -f Evidence/Evidence.vmem dumpfiles -Q 0x000000003ee119b0 -D dumpdir/```
+
+![dumpfiles output](images/dumpfile.PNG)
+
+You can look at `keylogger.py`'s code [here](keylogger.py). The keystrokes were being sent to the IP address `18.140.60.203` and port `1337`.
+Check the pcap file if any information was sent. The packets that were sent are:
+
+![packets list](images/packets.PNG)
+
+The data that was sent to the adversary can be found by following the conversation:
+
+![data sent](images/conversation.PNG)
+
+The data was encrypted before being sent to the adversary. The encryption was done in two simple operations:
+1. The keystrokes were being XORed with a key that is stored as an environment variable named `t3mp`. Let's find it using the `envars` plugin.
+
+![envars plugin output](images/envars.PNG)
+
+2. Then it is being encoded to base64.
+
+Let's write a simple decrypter. Basically decode it from base64 and XOR it with the key we found above. The code can be found [here](www.github.com). Upon running it, we can get the flag.
+
+![flag keystrokes](images/flag.PNG)
+
+Therefore the flag is `inctf{n3v3r_TrUs7_Sp4m_e_m41Ls}`
+
+**Another way to solve it:**
+
+List the processes running using `pslist`.
 
 ```volatility --profile=Win7SP1x64 -f Evidence/Evidence.vmem pslist```
 
@@ -42,21 +72,4 @@ and hah!! we have pythonw.exe running. Let's take a look at what was run with th
 
 ![cmdline output](images/cmdline.PNG)
 
-OK, beautiful!! the keylogger was running. Now, dump the keylogger and look at how the keystrokes were being sent to the adversary.
-
-```volatility --profile=Win7SP1x64 -f Evidence/Evidence.vmem dumpfiles -Q 0x000000003ee119b0 -D dumpdir/```
-
-![dumpfiles output](images/dumpfile.PNG)
-
-You can look at `keylogger.py`'s code [here](keylogger.py). The keystrokes were being sent to the IP address `18.140.60.203` and port `1337`.
-The keystrokes were being XORed with a key that is stored as an environment variable named `t3mp`. Then it is being encoded to base64.
-
-The information that was sent can be found using the pcap file. The packets that were sent are:
-
-![packets list](images/packets.PNG)
-
-The data that was sent to the adversary can be found by following the conversation:
-
-![data sent](images/conversation.PNG)
-
-Let's write a simple decrypter. Basically 
+We can see the keylogger being used in the above image.
